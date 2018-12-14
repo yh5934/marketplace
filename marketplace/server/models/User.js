@@ -1,6 +1,6 @@
 let mongoose = require("mongoose");
 let Schema   = mongoose.Schema;
-let ObjectId = mongoose.Types.ObjectId;
+let ObjectId = Schema.Types.ObjectId;
 
 mongoose.model("User", new mongoose.Schema({
     first:{type:String, required:true, minlength:2},
