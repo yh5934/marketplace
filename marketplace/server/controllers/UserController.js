@@ -4,11 +4,11 @@ let bcrypt  = require("bcrypt");
 
 class UserController{
 	register(req,res){
-		User.findOne({email:req.body.email},(err,user)=>{
+		User.findOne({_email:req.body.email},(err,user)=>{
 			if(user){
 				return res.status(403).json({
 					message:"Invalid Credentials!",
-					errors:errs
+					errors:err
 				});
 			}else{
 				let user = new User(req.body);
@@ -43,7 +43,7 @@ class UserController{
 	}
 
 	login(req,res){
-		User.findOne({email:req.body.email},(err,user)=>{
+		User.findOne({_email:req.body.email},(err,user)=>{
 			if(user){
 				bcrypt.compare(req.body.password,user.password,function(err,result){
 					if(result){
@@ -87,16 +87,16 @@ class UserController{
 				return res.status(200).json(user);
 			}else{
 				return res.status(404).json({
-					message:"Failed to populate listings for user"+user._id,
+					message:"Failed to populate listings for user",
 					errors:err
 				});
 			}
 		})
 	}
 
-	// session(){
-	// 	return res.json({});
-	// }
+	session(){
+		return res.json({});
+	}
 }
 
 module.exports = new UserController();
